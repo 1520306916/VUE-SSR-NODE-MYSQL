@@ -50,7 +50,7 @@
       <li>
         <p>
           我的优惠
-          <nuxt-link to="/orderList/index">试听课程</nuxt-link>
+          <nuxt-link to="/discount/index">试听课程</nuxt-link>
         </p>
       </li>
       <li>
