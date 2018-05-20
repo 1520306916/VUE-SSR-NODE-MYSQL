@@ -17,10 +17,17 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  plugins: [
+    '~/plugins/mint.js'
+    ],
   /*
   ** Build configuration
   */
   build: {
+    vendor: [
+      '~/plugins/mint.js',
+      "axios"
+      ],
     /*
     ** Run ESLint on save
     */

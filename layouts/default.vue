@@ -18,9 +18,13 @@ html {
 
 *, *:before, *:after {
   box-sizing: border-box;
+  padding: 0;
   margin: 0;
+  /*-webkit-tap-highlight-color: transparent;*/
 }
-
+body {
+  background-color: rgb(238, 238, 238);
+}
 .button--green {
   display: inline-block;
   border-radius: 4px;
