@@ -44,7 +44,7 @@
       <li>
         <p>
           我的钱包
-          <nuxt-link to="/orderList/index">管理孩子信息</nuxt-link>
+          <nuxt-link to="/myWallet/index">管理孩子信息</nuxt-link>
         </p>
       </li>
       <li>
@@ -56,7 +56,7 @@
       <li>
         <p>
           设置
-          <nuxt-link to="/orderList/index">设置</nuxt-link>
+          <nuxt-link to="/conf/index">设置</nuxt-link>
         </p>
       </li>
     </ul>
