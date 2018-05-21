@@ -1,0 +1,22 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+import mutations from "./mutations.js"
+const state = {
+   alldata:{},
+   indexClass:{
+     indexId:'15963587',
+     name:'艺术'
+   }
+}
+
+const createStore = () => {
+  return new Vuex.Store({
+    state,
+    mutations,
+  })
+}
+
+export default createStore
