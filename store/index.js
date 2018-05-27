@@ -9,7 +9,9 @@ const state = {
    indexClass:{
      indexId:'15963587',
      name:'艺术'
-   }
+   },
+  //  全部课程
+   courselist: {}
 }
 
 const createStore = () => {

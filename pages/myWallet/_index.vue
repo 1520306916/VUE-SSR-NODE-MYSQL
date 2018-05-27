@@ -21,7 +21,7 @@ import fixHeader from "~/components/commen/fixed-header.vue"
 export default {
   data() {
     return {
-      title: "确认订单"
+      title: "我的钱包"
     }
   },
   components: {

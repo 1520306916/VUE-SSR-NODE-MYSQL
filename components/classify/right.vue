@@ -6,7 +6,7 @@
     </div>
 
     <div v-for="(item, index) in dat.gradeTwo" :key="index">
-      <a href="javascript:;"  class="nav" @click="clickActive(index)" :data-id="item.gradeTwoId" :data-pid="item.pid">
+      <a href="javascript:;"  :class="index==id ? navactive : nav" @click="clickActive(index)" :data-id="item.gradeTwoId" :data-pid="item.pid" >
         {{item.twoClass_name}}
       </a>
 
@@ -28,7 +28,9 @@ export default {
   data() {
     return {
       currentclass: '艺术',
-      id: null
+      id: null,
+      nav:"nav",
+      navactive : "nav-active"
     }
   },
   methods: {
@@ -61,6 +63,7 @@ export default {
    line-height: 40px;
    border-right: 1px solid #eee;
    border-bottom: 1px solid #eee;
+   color: #333;
  }
 
  ul {
@@ -78,7 +81,15 @@ export default {
   background: url('/img/area_no_new.png') no-repeat right 18px;
   background-size: 12px 6px;
 }
-
+.nav-active {
+  font-size: 14px;
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: #333;
+  background: url('/img/area_no_new_on.png') no-repeat right 18px;
+  background-size: 12px 6px;
+}
 .top a {
   color: #fff;
   text-decoration: none;
