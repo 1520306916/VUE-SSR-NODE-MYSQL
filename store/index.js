@@ -11,7 +11,9 @@ const state = {
      name:'艺术'
    },
   //  全部课程
-   courselist: {}
+   courselist: {},
+   coursehomeid: "",
+   coursehomename: ""
 }
 
 const createStore = () => {

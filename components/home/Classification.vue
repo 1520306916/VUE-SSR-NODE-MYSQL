@@ -2,10 +2,10 @@
   <div class="icon-link">
 			<ul>
 				<li v-for="(item, index) in indexClass" :key="index">
-					<nuxt-link to="/coursehome">
+					<a  @click="click(item.classPid,item.showClassName)" href="javascript:;" :data-id="item.classPid">
 						<img width="40" :src="item.showClassImg" alt="" />
 						<p>{{item.showClassName}}</p>
-					</nuxt-link>
+					</a>
 				</li>
 			</ul>
 		</div>
@@ -13,9 +13,17 @@
 
 
 <script>
+import { mapState,mapMutations } from "vuex" 
 export default {
-  props: ['indexClass']
-
+  props: ['indexClass'],
+  methods: {
+    click(a,b) {
+      this.Datacoursehomeid(a)
+      this.Datacoursehomename(b)
+      this.$router.push("/coursehome?id="+a)
+    },
+    ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename"])
+  }
 }
 </script>
 

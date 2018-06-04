@@ -10,7 +10,7 @@
         <p>位置
           <span></span>
         </p>
-        <p>艺术
+        <p>{{this.coursehomename || courselist[0].class_name}}
           <span></span>
         </p>
         <p>智能排序
@@ -21,8 +21,11 @@
         </p>
       </div>
     </div>
+    <div class="banner" v-if="!courselist[0]">
+      123
+    </div>
 
-    <div class="banner">
+    <div class="banner" v-if="courselist[0]">
       <mt-loadmore ref="loadmore" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded">
         <ul>
           <li v-for="(item, index) in courselist" :key="index">
@@ -33,8 +36,13 @@
               </div>
               <div class="right">
                 <h1>{{item.name}}</h1>
-                <span>{{item.institutionsName}}({{item.campusesName}})</span>
+                <span class="span">{{item.institutionsName}}({{item.campusesName}})</span>
                 <p>{{item.open_date.substr(0,10)}}至{{item.end_date.substr(0,10)}}</p>
+                <p class="cost">￥<span>{{item.mall_cost}}</span ><span class="ycost">￥{{item.cost}}</span></p>
+                <p class="student">
+                  <span>已报{{item.saled}}/{{item.total}}</span>
+                  <span class="dizi">{{item.district}}</span>
+                </p>
               </div>
             </nuxt-link>
           </li>
@@ -46,38 +54,95 @@
 
 <script>
 import axios from "axios"
-import { mapState } from "vuex"
+import { mapState,mapMutations } from "vuex"
 export default {
-  asyncData({ store }) {
-    return axios.get("http://127.0.0.1:5000/api/courselist").then((res) => {
+  asyncData({ store,route }) {
+    return axios.get("http://127.0.0.1:5000/api/courselist?id="+route.query.id).then((res) => {
       store.commit('ADDcourselist', res.data)
     })
   },
   data() {
     return {
       list: 50,
-      allLoaded: false
+      allLoaded: false,
+      id: 15963589
     }
   },
   computed: {
     ...mapState([
-      'courselist'
+      'courselist',
+      'coursehomeid',
+      'coursehomename'
     ])
   },
   methods: {
     loadBottom() {
-      console.log(2)
+        if(!this.courselist[0]) {
+         this.allLoaded = true
+        }
+
+        axios.get("http://127.0.0.1:5000/api/courselist?id="+this.$route.query.id).then((res)=> {  
+        res.data.forEach((index)=> {
+          this.PUSHcourselist(index)
+        })
+        this.$refs.loadmore.onBottomLoaded()
+      })
     },
     back() {
       this.$router.back(-1)
-    }
+    },
+    ...mapMutations(["PUSHcourselist"])
   }
 }
 </script>
 
 <style scoped>
-.right span {
+.dizi {
+  float: right;
+}
+.right .student {
   font-size:12px;
+  margin-top: 8px;
+  color:#333;
+}
+.right .ycost {
+  font-size:12px;
+  color:#333;
+  padding-left:10px;
+  text-decoration:line-through ;
+}
+.right .cost {
+  margin-top:8px;
+  color:#ef4040;
+}
+
+.right .cost::before {
+    content: "团报价";
+    display: inline-block;
+    font-size: 12px;
+    color: #ef4040;
+    border: 1px solid #ef4040;
+    text-align: center;
+    border-radius: 5px;
+    margin-right: 3px;
+    line-height: 14px;
+    padding: 0 3px; 
+    position: relative;
+    top: -2px;
+}
+.right p:first-of-type {
+  font-size:12px;
+  color:#333;
+  padding-left:18px;
+  margin-top: 8px;
+  background: url("/img/icon_clock_.png") no-repeat 0 0;
+  background-size: 12px 12px;
+  line-height: 12px;
+}
+.right .span:first-of-type{
+  line-height: 12px;
+  font-size:12px;
+  margin-top: 8px;
   color:#333;
   padding-left: 18px;
   background: url('/img/icon_school.png') no-repeat 0 0;
