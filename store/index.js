@@ -13,7 +13,8 @@ const state = {
   //  全部课程
    courselist: {},
    coursehomeid: "",
-   coursehomename: ""
+   coursehomename: "",
+   type:''
 }
 
 const createStore = () => {

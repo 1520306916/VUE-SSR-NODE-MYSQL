@@ -2,7 +2,7 @@
   <div class="right">
     <div class="top" :style="{background: `url(/img/headImg/${this.indexClass.indexId}.jpg)no-repeat center/cover`}">
       <span></span>
-      <nuxt-link to="/">全部{{this.indexClass.name}}课程</nuxt-link>
+      <a href="javascript:;">全部{{this.indexClass.name}}课程</a>
     </div>
 
     <div v-for="(item, index) in dat.gradeTwo" :key="index">
@@ -11,7 +11,7 @@
       </a>
 
       <ul>
-        <li v-for="(it, i) in dat.gradeThree[index]" :key="i" v-show="index==id">
+        <li v-for="(it, i) in dat.gradeThree[index]" :key="i" v-show="index==id" @click="clicka(it.gradeThreeId, it.threeClass_name)">
           {{it.threeClass_name}}
         </li>
       </ul>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState} from "vuex"
+import { mapState,mapMutations } from "vuex"
 export default {
   props: ["dat"],
 
@@ -40,7 +40,14 @@ export default {
       }else {
         this.id = type
       }
-    }
+    },
+     clicka(a,b) {
+      this.Datacoursehomeid(a)
+      this.Datacoursehomename(b)
+      this.Addtype(2)
+      this.$router.push("/coursehome?id="+a)
+    },
+    ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename","Addtype"])
   },
   computed: {
     ...mapState([

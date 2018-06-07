@@ -16,6 +16,9 @@
   },
   Datacoursehomename (state, value) {
     state.coursehomename= value
+  },
+  Addtype(state, value) {
+    state.type = value
   }
 } 
 export default mutations

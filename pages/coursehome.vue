@@ -21,8 +21,9 @@
         </p>
       </div>
     </div>
-    <div class="banner" v-if="!courselist[0]">
-      123
+    <div class="banner nobanner" v-if="!courselist[0]">
+      <p class="icon"></p>
+      <p class="icon-text">你要找的课，臣妾做不到呀</p>
     </div>
 
     <div class="banner" v-if="courselist[0]">
@@ -57,7 +58,7 @@ import axios from "axios"
 import { mapState,mapMutations } from "vuex"
 export default {
   asyncData({ store,route }) {
-    return axios.get("http://127.0.0.1:5000/api/courselist?id="+route.query.id).then((res) => {
+    return axios.get("http://127.0.0.1:5000/api/courselist?type="+store.state.type+"&id="+route.query.id).then((res) => {
       store.commit('ADDcourselist', res.data)
     })
   },
@@ -81,7 +82,7 @@ export default {
          this.allLoaded = true
         }
 
-        axios.get("http://127.0.0.1:5000/api/courselist?id="+this.$route.query.id).then((res)=> {  
+        axios.get("http://127.0.0.1:5000/api/courselist?type=1&id="+this.$route.query.id).then((res)=> {  
         res.data.forEach((index)=> {
           this.PUSHcourselist(index)
         })
@@ -97,6 +98,23 @@ export default {
 </script>
 
 <style scoped>
+.icon-text {
+  font-size:12px;
+  margin-top:16px;
+  color:#888;
+  text-align: center;
+}
+.nobanner {
+  padding: 30px 0;
+}
+.icon {
+  display:block;
+  margin:0 auto;
+  width: 168px;
+  height: 120px;
+  background: url('/img/no_content_class.png');
+  background-size: 168px 120px;
+}
 .dizi {
   float: right;
 }

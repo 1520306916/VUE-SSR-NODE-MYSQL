@@ -20,9 +20,10 @@ export default {
     click(a,b) {
       this.Datacoursehomeid(a)
       this.Datacoursehomename(b)
+      this.Addtype(1)
       this.$router.push("/coursehome?id="+a)
     },
-    ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename"])
+    ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename","Addtype"])
   }
 }
 </script>
