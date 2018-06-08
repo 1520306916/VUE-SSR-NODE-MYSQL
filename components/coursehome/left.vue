@@ -57,8 +57,8 @@ export default {
 ul {
   width: 80px;
   position: fixed;
-  top: 40px;
-  bottom: 65px;
+  top: 75px;
+  bottom: 0px;
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;

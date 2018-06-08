@@ -21,7 +21,7 @@ export default {
       this.Datacoursehomeid(a)
       this.Datacoursehomename(b)
       this.Addtype(1)
-      this.$router.push("/coursehome?id="+a)
+      this.$router.push("/coursehome?id="+a+"&type=1&class="+b)
     },
     ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename","Addtype"])
   }

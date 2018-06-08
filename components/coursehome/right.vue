@@ -22,6 +22,7 @@
 
 <script>
 import { mapState,mapMutations } from "vuex"
+import axios from "axios"
 export default {
   props: ["dat"],
 
@@ -46,6 +47,12 @@ export default {
       this.Datacoursehomename(b)
       this.Addtype(2)
       this.$router.push("/coursehome?id="+a+"&type=2&class="+b)
+      axios.get("http://127.0.0.1:5000/api/courselist?type=2&id="+a).then((res) => {
+      this.$store.commit('ADDcourselist', res.data)
+      this.$store.commit('Addtype', 2)
+      this.$store.commit('Datacoursehomeid', a)
+      this.$store.commit('Datacoursehomename', b)
+    })
     },
     ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename","Addtype"])
   },
@@ -124,8 +131,8 @@ export default {
 
 .right {
   position: fixed;
-  top: 40px;
-  bottom: 65px;
+  top: 75px;
+  bottom: 0px;
   right: 0;
   width: 100%;
   padding-left: 90px;
