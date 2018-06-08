@@ -27,8 +27,8 @@
       <!--类型选择-->
       <div v-if="num==2" class="ding">
         <div></div>
-        <Left :data="alldata.gradeOne" class="left"></Left>
-        <Right :dat="alldata"></Right>
+        <Left :data="alldata.gradeOne"  class="left"></Left>
+        <Right :dat="alldata" @clicks="click(2)" ></Right>
       </div>
       <!--排序方式-->
       <ul v-if="num==3">
@@ -148,7 +148,7 @@ export default {
       })
     },
     back() {
-      this.$router.back(-1)
+      this.$router.push('/')
     },
     ...mapMutations(["PUSHcourselist"]),
     click(a) {

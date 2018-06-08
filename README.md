@@ -13,7 +13,7 @@
 
 
 
-- [ ] 课程 按 （智能排序 价格最高 价格最低 老师好评 人气最高） 排序
+- [x] 课程 按 （智能排序 价格最高 价格最低 老师好评 人气最高） 排序
 
 
 
@@ -75,7 +75,9 @@
 
 
 
-
+![首页](./static/images/1.png)![](./static/images/2.png)![](./static/images/3.png)
+![](./static/images/4.png)![](./static/images/5.png)![](./static/images/6.png)
+![](./static/images/7.png)
 
 # nuxt
 

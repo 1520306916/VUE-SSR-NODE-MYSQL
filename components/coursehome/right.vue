@@ -52,6 +52,7 @@ export default {
       this.$store.commit('Addtype', 2)
       this.$store.commit('Datacoursehomeid', a)
       this.$store.commit('Datacoursehomename', b)
+      this.$emit('clicks')
     })
     },
     ...mapMutations(["ADDcourselist","Datacoursehomeid","Datacoursehomename","Addtype"])
