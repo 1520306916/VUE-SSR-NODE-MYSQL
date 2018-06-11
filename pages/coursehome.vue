@@ -14,7 +14,7 @@
         <p @click="click(2)" :class="{active :num ==2&&flag}">{{this.coursehomename || courselist[0].class_name}}
           <span></span>
         </p>
-        <p @click="click(3)" :class="{active :num ==3&&flag}">智能排序
+        <p @click="click(3)" :class="{active :num ==3&&flag}">{{sort}}
           <span></span>
         </p>
         <p @click="click(4)" :class="{active :num ==4&&flag}">筛选
@@ -28,19 +28,19 @@
       <div v-if="num==2" class="ding">
         <div></div>
         <Left :data="alldata.gradeOne"  class="left"></Left>
-        <Right :dat="alldata" @clicks="click(2)" ></Right>
+        <Right :dat="alldata" @clicks="clicks(2)" ></Right>
       </div>
       <!--排序方式-->
       <ul v-if="num==3">
-        <li>
+        <li @click="message('智能排序')">
           <i class="icon_bg_1"></i>
           <span>智能排序</span>
         </li>
-        <li>
+        <li @click="message('离我最近')">
           <i class="icon_bg_2"></i>
           <span>离我最近</span>
         </li>
-        <li>
+        <li @click="messages('saled DESC','人气最高')">
           <i class="icon_bg_3"></i>
           <span>人气最高</span>
         </li>
@@ -48,11 +48,11 @@
           <i class="icon_bg_4"></i>
           <span>老师好评</span>
         </li>
-        <li>
+        <li @click="messages('mall_cost DESC','价格最高')">
           <i class="icon_bg_5"></i>
           <span>价格最高</span>
         </li>
-        <li>
+        <li @click="messages('mall_cost','价格最低')">
           <i class="icon_bg_6"></i>
           <span>价格最低</span>
         </li>
@@ -67,7 +67,7 @@
     <div class="banner" v-if="courselist[0]">
       <mt-loadmore ref="loadmore" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded">
         <ul>
-          <li v-for="(item, index) in courselist" :key="index">
+          <li v-for="(item, index) in courselist" :key="index" @click="skip(item.courseId)">
             <nuxt-link to="/">
               <div class="left">
                 <img :src="'/img/teacherHead/'+item.teacher_actor" alt="">
@@ -118,7 +118,10 @@ export default {
       allLoaded: false,
       id: 15963589,
       flag: false,
-      num: ''
+      sort: '智能排序',
+      limit: false,
+      num : '',
+      method: ''
     }
   },
   components: {
@@ -139,27 +142,62 @@ export default {
       if (!this.courselist[0]) {
         this.allLoaded = true
       }
-
-      axios.get("http://127.0.0.1:5000/api/courselist?type=" + this.type + "&id=" + this.$route.query.id).then((res) => {
+      if (this.limit) {
+        let limit = this.limit*5
+        this.limit = this.limit + 1
+        axios.get("http://127.0.0.1:5000/api/courselist?type=" + this.type + "&id=" + this.$route.query.id+"&method="+this.method+"&limit="+limit).then((res)=> {
+          res.data.forEach((index) => {
+            this.PUSHcourselist(index)
+          })
+          this.$refs.loadmore.onBottomLoaded()
+        })
+      }else {
+        axios.get("http://127.0.0.1:5000/api/courselist?type=" + this.type + "&id=" + this.$route.query.id).then((res) => {
         res.data.forEach((index) => {
           this.PUSHcourselist(index)
         })
         this.$refs.loadmore.onBottomLoaded()
       })
+      }
+      
     },
     back() {
       this.$router.push('/')
     },
-    ...mapMutations(["PUSHcourselist"]),
+    ...mapMutations(["PUSHcourselist","ADDcourselist"]),
     click(a) {
-
       if (this.num == a && this.flag == true) {
         this.flag = false
       } else {
         this.flag = true
       }
-
       this.num = a
+    },
+    clicks(a) {
+     this.flag = false
+     this.num = a
+     this.sort = "智能排序"
+    },
+    message(a) {
+      this.sort = a
+      this.limit = 1
+      this.method = a
+      axios.get("http://127.0.0.1:5000/api/courselist?type=" + this.type + "&id=" + this.$route.query.id).then((res)=> {
+        this.ADDcourselist(res.data)
+        this.click(3)
+      })
+    },
+    messages(a,b) {
+      this.sort = b
+      this.limit = 1
+      this.method = a
+      axios.get("http://127.0.0.1:5000/api/courselist?type=" + this.type + "&id=" + this.$route.query.id+"&method="+a).then((res)=> {
+        this.ADDcourselist(res.data)
+        this.click(3)
+      })
+    },
+    skip(a) {
+      this.$router.push("/courseDetail/index?id="+a)
     }
   }
 }
