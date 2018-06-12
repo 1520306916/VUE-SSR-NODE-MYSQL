@@ -85,6 +85,7 @@
                   <span>已报{{item.saled}}/{{item.total}}</span>
                   <span class="dizi">{{item.district}}</span>
                 </p>
+                
               </div>
             </nuxt-link>
           </li>
@@ -204,6 +205,7 @@ export default {
 </script>
 
 <style scoped>
+
  .left {
    position: absolute;
    top: 0;
